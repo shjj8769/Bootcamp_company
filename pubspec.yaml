@@ -35,6 +35,31 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+  # GetX
+  get: ^4.7.3
+# SQFLite
+  sqflite: ^2.4.4
+# imagePicker
+  image_picker: ^1.2.3
+# Naver mobile maps
+  flutter_naver_map: ^1.4.4
+# Geolocation
+  geolocator: ^14.1.1
+# Slidable
+  flutter_slidable: ^4.0.3
+# http
+  http: ^1.6.0
+# firebase
+  firebase_core: ^4.15.0
+# Firebae Storage
+  firebase_storage: ^13.6.0
+  cloud_firestore: ^6.10.0
+  fl_chart: ^1.2.0
+  google_fonts: ^8.2.1
+
+  # Mobile Scanner
+  mobile_scanner: ^7.4.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
