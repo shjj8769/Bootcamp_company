@@ -1,7 +1,5 @@
 from fastapi import APIRouter, Depends
-import pymysql
 
-from db import connect
 from .auth_employee import approval_line, require_hq
 
 router = APIRouter()
@@ -11,17 +9,9 @@ router = APIRouter()
 @router.get("")
 async def approver_employee(employee: dict = Depends(require_hq)):
 
-    conn = None
-
     try:
-        conn = connect()
-        curs = conn.cursor(pymysql.cursors.DictCursor)
-        return {'results': approval_line(curs, employee)}
+        return {'results': approval_line(employee)}
 
     except Exception as e:
         print("Error:", e)
         return {'result': 'Error'}
-
-    finally:
-        if conn is not None:
-            conn.close()
