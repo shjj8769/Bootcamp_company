@@ -63,7 +63,7 @@ async def detail_estimate(e_e_seq: int):
         curs.execute(
             """
             SELECT e.e_seq, e.e_e_seq, e.pr_name, e.e_list_price, e.e_count,
-                   e.e_price, e.e_date, e.e_e_name, e.m_id, e.e_id,
+                   e.e_price, e.e_date, e.m_id, e.e_id,
                    m.m_name, m.m_address
             FROM estimate e
             LEFT JOIN manufacture m ON m.m_id = e.m_id
@@ -87,7 +87,6 @@ async def detail_estimate(e_e_seq: int):
             'estimate_no': 'MQ-{}-{:03d}'.format(first['e_date'].strftime('%y%m%d'), e_e_seq),
             'e_e_seq': e_e_seq,
             'e_date': first['e_date'],
-            'e_e_name': first['e_e_name'],
             'm_id': first['m_id'],
             'm_name': first['m_name'],
             'm_address': first['m_address'],
