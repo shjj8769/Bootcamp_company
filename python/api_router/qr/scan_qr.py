@@ -29,8 +29,8 @@ async def scan_qr(
         conn = connect()
         curs = conn.cursor()
         curs.execute(
-            "INSERT INTO pick_up (e_id, p_date, email, SKU, store_seq) VALUES (%s, NOW(), %s, %s, %s)",
-            (employee['e_id'], info['email'], info['pr_id'], info['store_seq']),
+            "INSERT INTO pick_up (e_id, p_date, email, SKU, store_seq, purchase_p_id) VALUES (%s, NOW(), %s, %s, %s, %s)",
+            (employee['e_id'], info['email'], info['pr_id'], info['store_seq'], info['p_id']),
         )
 
         db = get_db()
