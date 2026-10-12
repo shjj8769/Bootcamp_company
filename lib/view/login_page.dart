@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
       DeviceOrientation.landscapeRight,
     ]);
     AppConfig.load().catchError((_) {
-      if (mounted) setState(() => _error = '앱 설정 파일(assets/app.env)을 불러오지 못했습니다.');
+      if (mounted) setState(() => _error = '앱 설정 파일(.env)을 불러오지 못했습니다.');
     });
   }
 

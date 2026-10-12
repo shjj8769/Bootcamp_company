@@ -30,7 +30,7 @@ class _StoreMapPageState extends State<StoreMapPage> {
   Future<List<Map<String, dynamic>>> _load() async {
     await AppConfig.load();
     if (AppConfig.naverClientId.isEmpty) {
-      throw ApiException('네이버지도 Client ID가 없습니다. assets/app.env의 NAVER_MAP_CLIENT_ID를 확인해 주세요.');
+      throw ApiException('네이버지도 Client ID가 없습니다. .env의 NAVER_MAP_CLIENT_ID를 확인해 주세요.');
     }
     await FlutterNaverMap().init(
       clientId: AppConfig.naverClientId,
@@ -48,7 +48,7 @@ class _StoreMapPageState extends State<StoreMapPage> {
       NUnauthorizedClientException() =>
         'Client ID가 NCP에 없거나, 이 앱의 패키지명(com.example.project_company)이 애플리케이션에 등록되지 않았거나, Dynamic Map이 선택되지 않았습니다.',
       NQuotaExceededException() => '지도 사용량 한도를 초과했습니다.',
-      NClientUnspecifiedException() => 'Client ID가 앱에 전달되지 않았습니다. assets/app.env를 확인해 주세요.',
+      NClientUnspecifiedException() => 'Client ID가 앱에 전달되지 않았습니다. .env를 확인해 주세요.',
       _ => '알 수 없는 인증 오류입니다.',
     };
     return '네이버지도 인증에 실패했습니다.\n$hint\n(${e.runtimeType} / code ${e.code} / ${e.message})';
@@ -59,7 +59,7 @@ class _StoreMapPageState extends State<StoreMapPage> {
     Future.delayed(const Duration(seconds: 12), () {
       if (mounted && !_mapLoaded && _mapError == null) {
         setState(() => _mapError = '지도가 12초 안에 표시되지 않았습니다.\n'
-            '1) 에뮬레이터/태블릿의 인터넷 연결  2) assets/app.env의 NAVER_MAP_CLIENT_ID\n'
+            '1) 에뮬레이터/태블릿의 인터넷 연결  2) .env의 NAVER_MAP_CLIENT_ID\n'
             '3) NCP 콘솔 Maps 애플리케이션에 앱 패키지명(com.example.project_company)이 등록되어 있는지 확인해 주세요.');
       }
     });

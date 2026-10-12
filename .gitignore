@@ -404,7 +404,3 @@ fastapid/data/
 **/service-account*.json
 
 python/fastapi/data/
-
-# 앱 전용 설정(네이버지도 키, 서버 주소)은 커밋 금지, 예시 파일만 공유
-assets/app.env
-!assets/app.env.example
