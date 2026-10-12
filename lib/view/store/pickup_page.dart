@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
+// TODO: 에뮬레이터 테스트 중 카메라 때문에 앱이 종료되어 임시 비활성화 (실기기 테스트 시 주석 해제)
+// import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../common/api_client.dart';
 import '../common/app_theme.dart';
@@ -15,10 +16,10 @@ class StorePickupPage extends StatefulWidget {
 }
 
 class _StorePickupPageState extends State<StorePickupPage> {
-  final _scanner = MobileScannerController(
-    formats: const [BarcodeFormat.qrCode],
-    detectionSpeed: DetectionSpeed.noDuplicates,
-  );
+  // final _scanner = MobileScannerController(
+  //   formats: const [BarcodeFormat.qrCode],
+  //   detectionSpeed: DetectionSpeed.noDuplicates,
+  // );
   final _codeController = TextEditingController();
   bool _busy = false;
   String? _message;
@@ -80,7 +81,7 @@ class _StorePickupPageState extends State<StorePickupPage> {
 
   @override
   void dispose() {
-    _scanner.dispose();
+    // _scanner.dispose();
     _codeController.dispose();
     super.dispose();
   }
@@ -129,20 +130,30 @@ class _StorePickupPageState extends State<StorePickupPage> {
                   borderRadius: BorderRadius.circular(14),
                   child: SizedBox(
                     height: 380,
-                    child: MobileScanner(
-                      controller: _scanner,
-                      onDetect: (capture) {
-                        final code = capture.barcodes.isEmpty ? null : capture.barcodes.first.rawValue;
-                        if (code != null) _verify(code);
-                      },
-                      errorBuilder: (context, error) => Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(24),
-                          child: Text(
-                            '카메라를 사용할 수 없습니다. 카메라 권한을 확인하거나 오른쪽에 코드를 직접 입력해 주세요.',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(color: AppColors.subText),
-                          ),
+                    // child: MobileScanner(
+                    //   controller: _scanner,
+                    //   onDetect: (capture) {
+                    //     final code = capture.barcodes.isEmpty ? null : capture.barcodes.first.rawValue;
+                    //     if (code != null) _verify(code);
+                    //   },
+                    //   errorBuilder: (context, error) => Center(
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.all(24),
+                    //       child: Text(
+                    //         '카메라를 사용할 수 없습니다. 카메라 권한을 확인하거나 오른쪽에 코드를 직접 입력해 주세요.',
+                    //         textAlign: TextAlign.center,
+                    //         style: const TextStyle(color: AppColors.subText),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    child: const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(24),
+                        child: Text(
+                          '카메라 스캔은 임시로 비활성화되었습니다. 오른쪽에 코드를 직접 입력해 주세요.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: AppColors.subText),
                         ),
                       ),
                     ),
