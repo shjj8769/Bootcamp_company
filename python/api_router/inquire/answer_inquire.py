@@ -4,7 +4,8 @@ from db import connect
 
 router = APIRouter()
 
-# 답변은 level 1 행으로 저장하고, i_comment_seq에 원글 i_seq를 기록
+# 답변은 해당 문의 행(원글 또는 추가 문의)의 inquiry_detail, d_date, e_id에 저장
+# i_state: 0 = 답변 대기, 1 = 답변 완료
 @router.post("")
 async def answer_inquire(
     i_seq: int = Form(...),
@@ -17,26 +18,21 @@ async def answer_inquire(
         conn = connect()
         curs = conn.cursor()
 
-        # 원글 확인 및 이메일 조회
-        curs.execute(
-            "SELECT email, i_state FROM inquiry WHERE i_seq = %s AND level = 0",
-            (i_seq,),
-        )
+        curs.execute("SELECT i_state FROM inquiry WHERE i_seq = %s", (i_seq,))
         origin = curs.fetchone()
         if origin is None:
             return {"result": "Error", "message": "inquiry not found"}
-        if origin[1] == 1:
+        if origin[0] == 1:
             return {"result": "Error", "message": "already answered"}
 
         curs.execute(
             """
-            INSERT INTO inquiry (email, e_id, inquiry_detail, i_date, i_state, i_comment_seq, level)
-            VALUES (%s, %s, %s, NOW(), 1, %s, 1)
+            UPDATE inquiry
+            SET inquiry_detail = %s, d_date = NOW(), e_id = %s, i_state = 1
+            WHERE i_seq = %s
             """,
-            (origin[0], e_id, inquiry_detail.strip(), i_seq),
+            (inquiry_detail.strip(), e_id, i_seq),
         )
-        # 원글 처리상태를 답변 완료로 변경
-        curs.execute("UPDATE inquiry SET i_state = 1 WHERE i_seq = %s", (i_seq,))
 
         conn.commit()
         return {"result": "OK", "i_seq": i_seq}
