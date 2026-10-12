@@ -19,8 +19,8 @@ EMPLOYEE_COLLECTION = 'main_server'
 # 부서(e_team)가 이 값이면 대리점 직원, 그 외는 본사 직원
 STORE_TEAM = '대리점'
 
-# 직급 순서: 결재는 사원 -> 팀장 -> 임원(이사) 순으로 진행
-JOB_RANK = {'사원': 1, '팀장': 2, '이사': 3}
+# 직급 순서: 결재는 사원 -> 팀장 -> 임원 순으로 진행 ('이사'와 '임원'은 같은 최고 직급으로 취급)
+JOB_RANK = {'사원': 1, '팀장': 2, '이사': 3, '임원': 3}
 
 # 토큰 서명 키 (.env의 AUTH_SECRET 사용), 만료 시간(초)
 AUTH_SECRET = os.getenv('AUTH_SECRET', 'dev-secret-change-me')
