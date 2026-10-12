@@ -10,7 +10,7 @@ async def insert_notice(
     n_classification: str = Form(...),
     n_title: str = Form(...),
     n_detail: str = Form(...),
-    e_id: int = Form(...),
+    e_id: str = Form(...),
 ):
     conn = None
     curs = None

@@ -59,6 +59,7 @@ dependencies:
 
   # Mobile Scanner
   mobile_scanner: ^7.4.2
+  flutter_dotenv: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +82,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # 서버와 같은 .env를 앱 설정(서버 주소, 네이버지도 Client ID)으로 사용. 팀프로젝트(비배포)용이라 DB 정보도 함께 포함됨
+  assets:
+    - .env
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, Form
 from google.cloud import firestore
+from google.cloud.firestore_v1.base_query import FieldFilter
 
 from api_router.employee.auth_employee import get_db, require_store
-from api_router.office_stock.stock_common import STORE, store_doc_id
+from api_router.office_stock.stock_common import SEND, STORE, store_doc_id
 from db import connect
 from . import qr_memory
 
@@ -51,6 +52,14 @@ async def scan_qr(
 
         conn.commit()
         qr_memory.use(code)
+
+        # 주문 관리 화면에서 '픽업완료'로 보이도록 해당 주문의 send 문서에 픽업 완료를 기록 (실패해도 픽업 인증은 유지)
+        try:
+            for send in db.collection(SEND).where(filter=FieldFilter('p_id', '==', info['p_id'])).stream():
+                send.reference.update({'s_picked': True, 's_picked_date': firestore.SERVER_TIMESTAMP})
+        except Exception as e:
+            print("Warning: failed to mark send as picked:", e)
+
         return {'result': 'OK', 'p_id': info['p_id'], 'pr_id': info['pr_id'], 'count': info['count']}
 
     except Exception as e:

@@ -29,6 +29,15 @@ def get(code):
     return _codes.get(code)
 
 
+# 주문번호로 현재 유효한 코드 찾기 (없거나 만료됐으면 None). 고객 앱이 대리점이 만든 QR을 가져갈 때 사용
+def find_by_order(p_id):
+    purge()
+    for code, info in _codes.items():
+        if info['p_id'] == p_id:
+            return code, info
+    return None
+
+
 # 사용 처리: 코드를 지우고 주문을 픽업 완료로 기록
 def use(code):
     info = _codes.pop(code, None)
