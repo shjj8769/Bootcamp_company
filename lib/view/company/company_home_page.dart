@@ -6,6 +6,7 @@ import '../login_page.dart';
 import 'approval_page.dart';
 import 'dashboard_page.dart';
 import 'inquiry_page.dart';
+import 'model_page.dart';
 import 'notice_page.dart';
 import 'order_page.dart';
 import 'purchase_order_page.dart';
@@ -41,6 +42,7 @@ class _CompanyHomePageState extends State<CompanyHomePage> {
     _MenuItem('결재 관리', '결재 관리'),
     _MenuItem('발주 관리', '발주 관리'),
     _MenuItem('대리점 관리', '대리점 관리'),
+    _MenuItem('모델 계약', '모델 계약'),
   ];
 
   int _index = 0;
@@ -78,6 +80,8 @@ class _CompanyHomePageState extends State<CompanyHomePage> {
         return ApprovalPage(draft: _draft, onDraftConsumed: () => _draft = null);
       case '발주 관리':
         return const PurchaseOrderPage();
+      case '모델 계약':
+        return const ModelPage();
       default:
         return const StoreMapPage();
     }
